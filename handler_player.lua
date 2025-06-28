@@ -1,4 +1,5 @@
 player = {x=16, y=16, speed=2}
+player_have_key = false
 
 function draw_player()
     local color = controls_inverted and 10 or 8  -- if inverse yellow(10), red(8) if normal
@@ -49,6 +50,14 @@ function check_wall_collision(x, y)
     if grid_x < 1 or grid_x > maze_size or grid_y < 1 or grid_y > maze_size then
         return true
     end
+
+    if maze[grid_y][grid_x] == obj_type.key then
+        maze[grid_y][grid_x] = obj_type.path
+        player_have_key = true
+        -- TODO: Would be cool if there is a timer for holding the key the reset
+    end
+
+    -- TODO: add logic to breakable wall
 
     -- if the grid pos hold value 1 so a collision happened.
     return maze[grid_y][grid_x] == obj_type.wall or maze[grid_y][grid_x] == obj_type.breakable_wall

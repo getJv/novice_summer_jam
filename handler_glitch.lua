@@ -26,6 +26,7 @@ function trigger_random_glitch()
     -- 1: controls_inverted
     -- 2: add a breakable wall
     -- 3: TODO: move the key position hahaha!
+    -- 4: TODO: if player has the key, drop it! hahaha!
     local glitch_type = flr(rnd(2)) + 1
 
     if glitch_type == 1 then --
