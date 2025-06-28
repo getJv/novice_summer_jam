@@ -6,7 +6,8 @@ obj_type = {
     path = 0, -- empty/black
     wall = 1, -- grey
     breakable_wall = 2, -- pink
-    key = 3 -- yellow
+    key = 3, -- yellow
+    exit = 4 -- green
 }
 
 test_maze = {
@@ -44,8 +45,11 @@ function draw_maze()
             elseif maze[y][x] == obj_type.breakable_wall then -- wall condition, im using 14 as pink color
                 rectfill(screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1, 14)
 
-            elseif maze[y][x] == obj_type.key then -- wall condition, im using 10 as pink color
+            elseif maze[y][x] == obj_type.key then -- wall condition, im using 10 as yellow color
                 rectfill(screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1, 10)
+
+            elseif maze[y][x] == obj_type.exit then -- wall condition, im using 3 as green color
+                rectfill(screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1, 3)
 
             -- path condition, im using 0 as black color
             else
@@ -58,4 +62,9 @@ end
 function add_key()
     local pos = get_free_path_spot()
     maze[pos.y][pos.x] = obj_type.key
+end
+
+function add_exit()
+    local pos = get_free_path_spot()
+    maze[pos.y][pos.x] = obj_type.exit
 end

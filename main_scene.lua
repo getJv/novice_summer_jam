@@ -12,6 +12,7 @@ function main_scene_init()
     -- Load the maze format, using test until i code the auto generation... probably the most broken part
     maze = test_maze
     add_key()
+    add_exit()
 end
 
 function main_scene_update()
