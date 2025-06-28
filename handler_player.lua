@@ -1,8 +1,9 @@
 player = {x=16, y=16, speed=2}
 
 function draw_player()
+    local color = controls_inverted and 10 or 8  -- if inverse yellow(10), red(8) if normal
     -- Draw a fancy player sprite hehe
-    circfill(player.x, player.y, 2, 8)
+    circfill(player.x, player.y, 2, color)
 end
 
 function handle_player_movement()
@@ -17,6 +18,12 @@ function handle_player_movement()
     if btn(1) then dx = 1 end   -- Right arrow
     if btn(2) then dy = -1 end  -- Up Arrow
     if btn(3) then dy = 1 end   -- Down Arrow
+
+    -- if inverted controls glitch is active apply direction inversion
+    if controls_inverted then
+        dx = -dx
+        dy = -dy
+    end
 
     -- Update the new position and increasing or decreasing the x,y player pos
     if dx != 0 or dy != 0 then
