@@ -51,7 +51,7 @@ function check_wall_collision(x, y)
     end
 
     -- if the grid pos hold value 1 so a collision happened.
-    return maze[grid_y][grid_x] == 1
+    return maze[grid_y][grid_x] == 1 or maze[grid_y][grid_x] == 2
 end
 
 
