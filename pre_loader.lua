@@ -1,0 +1,1 @@
+_init = main_scene_init
