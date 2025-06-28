@@ -2,6 +2,30 @@
 -- player {x:int,y:int, speed:int} from handler_player.lua
 -- maze {}; maze_size,cell_size int; maze_test:[][]int  from handler_maze.lua
 
+glitch_timer = 180
+
+function draw_ui()
+    -- Timer do próximo glitch
+    print("glitch in: " .. flr(glitch_timer/60 + 1), 2, 122, 7)
+end
+
+function update_glitches()
+    -- timer Countdown
+    if glitch_timer > 0 then
+        glitch_timer -= 1
+    end
+
+    -- Reset the timer
+    if glitch_timer <= 0 then
+        -- 60 frames is a sec adding 120 here means the next timer
+        -- will be something bt 3-5 segundos
+        glitch_timer = 180 + rnd(120)
+    end
+
+end
+
+
+
 function main_scene_init()
     _update = main_scene_update
     _draw = main_scene_draw
@@ -20,4 +44,6 @@ function main_scene_draw()
     cls()
     draw_maze()
     draw_player()
+    draw_ui()
+    update_glitches()
 end
