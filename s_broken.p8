@@ -1,6 +1,8 @@
 pico-8 cartridge // http://www.pico-8.com
 version 42
 __lua__
+#include handler_glitch.lua
+#include handler_ui_info.lua
 #include handler_maze.lua
 #include handler_player.lua
 #include main_scene.lua
