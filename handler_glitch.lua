@@ -24,7 +24,8 @@ end
 function trigger_random_glitch()
 
     -- 1: controls_inverted
-    -- 2: TODO: resist wall added
+    -- 2: add a breakable wall
+    -- 3: TODO: move the key position hahaha!
     local glitch_type = flr(rnd(2)) + 1
 
     if glitch_type == 1 then --
@@ -33,12 +34,12 @@ function trigger_random_glitch()
         glitch_timer = 180
     elseif glitch_type == 2 then
         -- execute a new glitch
-        replace_path_with_something()
+        add_breakable_wall()
         glitch_timer = 120 + rnd(180)
     end
 end
 
-function replace_path_with_something()
+function get_free_path_spot()
     local path_positions = {}
 
     -- find all pos with 0
@@ -52,17 +53,26 @@ function replace_path_with_something()
 
     -- if none do nothing
     if #path_positions == 0 then
+        return nil
+    end
+
+    -- get an random empty pos
+    local random_index_pos = flr(rnd(#path_positions)) + 1
+    return path_positions[random_index_pos]
+end
+
+function add_breakable_wall()
+
+    local pos = get_free_path_spot()
+
+    -- Game over, no more blocks player is stuck TODO: create gameover scene
+    if #pos == 0 then
         cls()
         print('all blocked... gameover haha!')
         stop()
     end
 
-    -- get an random empty pos
-    local random_index_pos = flr(rnd(#path_positions)) + 1
-    local pos = path_positions[random_index_pos]
-
-    maze[pos.y][pos.x] = 2 --
-
+    maze[pos.y][pos.x] = obj_type.breakable_wall
 
 end
 

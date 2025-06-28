@@ -3,9 +3,10 @@ maze_size = 16 -- This is the max size of the maze
 cell_size = 8  -- this is the cell, in this case 8x8 pixels
 -- the idea is:  1's will be wall and 0's will be path
 obj_type = {
-    path = 0,
-    wall = 1,
-    breakable_wall = 2
+    path = 0, -- empty/black
+    wall = 1, -- grey
+    breakable_wall = 2, -- pink
+    key = 3 -- yellow
 }
 
 test_maze = {
@@ -43,10 +44,18 @@ function draw_maze()
             elseif maze[y][x] == obj_type.breakable_wall then -- wall condition, im using 14 as pink color
                 rectfill(screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1, 14)
 
+            elseif maze[y][x] == obj_type.key then -- wall condition, im using 10 as pink color
+                rectfill(screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1, 10)
+
             -- path condition, im using 0 as black color
             else
                 rectfill(screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1, 0)
             end
         end
     end
+end
+
+function add_key()
+    local pos = get_free_path_spot()
+    maze[pos.y][pos.x] = obj_type.key
 end

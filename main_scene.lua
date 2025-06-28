@@ -9,8 +9,9 @@ function main_scene_init()
     -- Set initial pos for the player
     player.x = 16
     player.y = 16
-    -- Load the maze format, using test until i code the auto generation... problably the most broken part
+    -- Load the maze format, using test until i code the auto generation... probably the most broken part
     maze = test_maze
+    add_key()
 end
 
 function main_scene_update()
