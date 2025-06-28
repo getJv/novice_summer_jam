@@ -29,11 +29,16 @@ function draw_maze()
             local screen_y = (y - 1) * cell_size
 
 
-            if maze[y][x] == 1 then -- wall condition, im using 6 as grey color
+            -- wall condition, im using 6 as grey color
+            if maze[y][x] == 1 then
                 -- the cell_size - 1 here is because the pixels at screen start at 0
                 rectfill(screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1, 6)
+
+            elseif maze[y][x] == 2 then -- wall condition, im using 6 as grey color
+                rectfill(screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1, 14)
+
+            -- path condition, im using 0 as black color
             else
-                -- path condition, im using 0 as black color
                 rectfill(screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1, 0)
             end
         end
