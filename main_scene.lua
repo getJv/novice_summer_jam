@@ -15,6 +15,7 @@ end
 
 function main_scene_update()
     handle_player_movement()
+    update_glitches()
 end
 
 function main_scene_draw()
@@ -22,5 +23,5 @@ function main_scene_draw()
     draw_maze()
     draw_player()
     draw_ui()
-    update_glitches()
+
 end
