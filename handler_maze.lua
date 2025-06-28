@@ -2,6 +2,12 @@ maze = {}
 maze_size = 16 -- This is the max size of the maze
 cell_size = 8  -- this is the cell, in this case 8x8 pixels
 -- the idea is:  1's will be wall and 0's will be path
+obj_type = {
+    path = 0,
+    wall = 1,
+    breakable_wall = 2
+}
+
 test_maze = {
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
     {1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
@@ -30,11 +36,11 @@ function draw_maze()
 
 
             -- wall condition, im using 6 as grey color
-            if maze[y][x] == 1 then
+            if maze[y][x] == obj_type.wall then
                 -- the cell_size - 1 here is because the pixels at screen start at 0
                 rectfill(screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1, 6)
 
-            elseif maze[y][x] == 2 then -- wall condition, im using 6 as grey color
+            elseif maze[y][x] == obj_type.breakable_wall then -- wall condition, im using 14 as pink color
                 rectfill(screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1, 14)
 
             -- path condition, im using 0 as black color
