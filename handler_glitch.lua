@@ -66,7 +66,7 @@ function add_breakable_wall()
     local pos = get_free_path_spot()
 
     -- Game over, no more blocks player is stuck TODO: create gameover scene
-    if #pos == 0 then
+    if not pos then
         cls()
         print('all blocked... gameover haha!')
         stop()
