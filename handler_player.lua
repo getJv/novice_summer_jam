@@ -51,10 +51,23 @@ function check_wall_collision(x, y)
         return true
     end
 
+    -- collision with the key
     if maze[grid_y][grid_x] == obj_type.key then
         maze[grid_y][grid_x] = obj_type.path
         player_have_key = true
         -- TODO: Would be cool if there is a timer for holding the key the reset
+    end
+
+    -- collision with the exit
+    if maze[grid_y][grid_x] == obj_type.exit then
+        if player_have_key then
+            num_levels -= 1
+            main_scene_init()
+            -- TODO: add win logic for depth: 0
+        else
+            return true
+        end
+
     end
 
     -- TODO: add logic to breakable wall

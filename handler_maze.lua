@@ -1,7 +1,7 @@
 maze = {}
 maze_size = 16 -- This is the max size of the maze
 cell_size = 8  -- this is the cell, in this case 8x8 pixels
--- the idea is:  1's will be wall and 0's will be path
+num_levels = 50
 obj_type = {
     path = 0, -- empty/black
     wall = 1, -- grey
