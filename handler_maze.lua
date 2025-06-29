@@ -5,8 +5,8 @@ obj_type = {
     path = 0,
     wall = 1,
     breakable_wall = 2,
-    key = 3, -- yellow
-    exit = 4 -- green
+    key = 3,
+    exit = 4
 }
 
 -- https://www.integral-domain.org/lwilliams/Applets/algorithms/backtrackingmaze.php
@@ -82,8 +82,9 @@ function draw_maze(maze_template,offset_x,offset_y)
             elseif maze_template[y][x] == obj_type.key then
                 spr(obj_type.key,screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1)
 
-            elseif maze_template[y][x] == obj_type.exit then -- wall condition, im using 3 as green color
-                rectfill(screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1, 3)
+            -- exit condition
+            elseif maze_template[y][x] == obj_type.exit then
+                spr(obj_type.exit,screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1)
 
                 -- path condition, im using 0 as black color
             else
