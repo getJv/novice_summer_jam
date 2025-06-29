@@ -1,13 +1,13 @@
+maze_ready = false
 function main_scene_init()
     _update = main_scene_update
     _draw = main_scene_draw
-    -- Set initial pos for the player
-    player.x = 16
-    player.y = 16
     -- Load the maze format, using test until i code the auto generation... probably the most broken part TODO: try random generation or creat 10 maps as default...
+    maze_ready = false
     maze = generate_maze_recursive(16,16)
     add_key()
     add_exit()
+    add_player()
 
     -- random music from playlist
     local random_index = flr(rnd(#playlist)) + 1
@@ -22,8 +22,8 @@ end
 
 function main_scene_draw()
     cls()
+    draw_ui()
     draw_maze(maze,0,0)
     draw_player()
-    draw_ui()
 
 end

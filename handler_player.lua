@@ -88,4 +88,13 @@ function check_wall_collision(x, y)
     return maze[grid_y][grid_x] == obj_type.wall
 end
 
+function add_player()
+    if not maze_ready then
+        return
+    end
+    local pos = get_free_path_spot()
+    player.x = pos.x
+    player.x = pos.y
+end
+
 

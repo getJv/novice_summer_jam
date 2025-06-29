@@ -50,7 +50,7 @@ function generate_maze_recursive(width, height)
 
     -- Entrypoint to cave
     carve_path(2, 2)
-
+    maze_ready = true
     return new_maze
 end
 
@@ -95,11 +95,17 @@ function draw_maze(maze_template,offset_x,offset_y)
 end
 
 function add_key()
+    if not maze_ready then
+        return
+    end
     local pos = get_free_path_spot()
     maze[pos.y][pos.x] = obj_type.key
 end
 
 function add_exit()
+    if not maze_ready then
+        return
+    end
     local pos = get_free_path_spot()
     maze[pos.y][pos.x] = obj_type.exit
 end
