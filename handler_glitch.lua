@@ -44,8 +44,8 @@ end
 function get_free_path_spot()
     local path_positions = {}
 
-    local num_rows = #maze_menu_logo
-    local num_cols = #maze_menu_logo[1]
+    local num_rows = #maze
+    local num_cols = #maze[1]
 
     -- find all pos with 0
     for y = 1, num_rows do
