@@ -1,5 +1,6 @@
 player = {x=16, y=16, speed=2}
 player_have_key = false
+forcing = 0
 
 function draw_player()
     local p_sprite = controls_inverted and 1 or 2
@@ -81,9 +82,16 @@ function check_wall_collision(x, y)
     end
 
     if maze[grid_y][grid_x] == obj_type.breakable_wall then
-        -- TODO: add logic to breakable wall
-        sfx(sound.hit_breakable)
-        return true
+
+        if forcing < 20 then
+            forcing = forcing +1
+            sfx(sound.hit_breakable)
+            return true
+        end
+        maze[grid_y][grid_x] = obj_type.path
+        forcing = 0
+        return false
+
     end
 
 
