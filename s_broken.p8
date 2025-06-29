@@ -7,6 +7,7 @@ __lua__
 #include handler_maze.lua
 #include handler_player.lua
 #include main_scene.lua
+#include menu_scene.lua
 #include pre_loader.lua
 
 
