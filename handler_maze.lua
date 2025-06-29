@@ -72,7 +72,7 @@ function draw_maze(maze_template,offset_x,offset_y)
             -- wall condition, im using 6 as grey color
             if maze_template[y][x] == obj_type.wall then
                 -- the cell_size - 1 here is because the pixels at screen start at 0
-                rectfill(screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1, 6)
+                spr(obj_type.wall,screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1)
 
             elseif maze_template[y][x] == obj_type.breakable_wall then -- wall condition, im using 14 as pink color
                 rectfill(screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1, 14)
