@@ -67,10 +67,13 @@ function check_wall_collision(x, y)
         if player_have_key then
             num_levels = num_levels - 1
             player_have_key = false
-            main_scene_init()
+            if num_levels == 1 then
+                credits_scene_init()
+            else
+                main_scene_init()
+            end
             sfx(sound.new_maze)
-            main_scene_init()
-            -- TODO: add win logic for depth: 0
+
         else
             return false -- allow cross in front of the door without key
         end
