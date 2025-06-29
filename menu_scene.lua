@@ -1,15 +1,11 @@
-
-maze_menu_logo = {
-    {1,1,1,1,1,1,1,1},
-    {1,0,2,0,1,0,3,1},
-    {1,0,1,0,1,0,1,1},
-    {1,0,1,0,0,0,4,1},
-    {1,0,1,1,1,1,1,1},
-}
-
 function menu_scene_init()
     _update = menu_scene_update
     _draw = menu_scene_draw
+    maze = generate_maze_recursive(8,5)
+    add_key()
+    add_player()
+    add_breakable_wall()
+    add_exit()
 end
 
 function menu_scene_update()
@@ -50,8 +46,8 @@ end
 
 function draw_logo()
 
-    local num_rows = #maze_menu_logo
-    local num_cols = #maze_menu_logo[1]
+    local num_rows = #maze
+    local num_cols = #maze[1]
 
     -- Find middle and center of screen
     local maze_width = num_cols * cell_size
@@ -60,7 +56,7 @@ function draw_logo()
     -- find the Offset to center the image
     local offset_x = (screen_width - maze_width) / 2
     local offset_y = (screen_height - maze_height) / 4 -- 25% of height
-    draw_maze(maze_menu_logo,offset_x,offset_y)
+    draw_maze(maze,offset_x,offset_y)
     --
     offset_y = screen_height / 2 -- 50% of height
     print("broken maze!",offset_x,offset_y,6)

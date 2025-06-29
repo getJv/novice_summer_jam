@@ -89,9 +89,6 @@ function check_wall_collision(x, y)
 end
 
 function add_player()
-    if not maze_ready then
-        return
-    end
     local pos = get_free_path_spot()
     player.x = pos.x
     player.x = pos.y

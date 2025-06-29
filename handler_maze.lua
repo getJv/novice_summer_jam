@@ -72,19 +72,19 @@ function draw_maze(maze_template,offset_x,offset_y)
             -- wall condition
             if maze_template[y][x] == obj_type.wall then
                 -- the cell_size - 1 here is because the pixels at screen start at 0
-                spr(obj_type.wall,screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1)
+                spr(obj_type.wall, screen_x, screen_y)
 
             -- breakable_wall condition
             elseif maze_template[y][x] == obj_type.breakable_wall then
-                spr(obj_type.breakable_wall,screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1)
+                spr(obj_type.breakable_wall, screen_x, screen_y)
 
             -- key condition
             elseif maze_template[y][x] == obj_type.key then
-                spr(obj_type.key,screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1)
+                spr(obj_type.key, screen_x, screen_y)
 
             -- exit condition
             elseif maze_template[y][x] == obj_type.exit then
-                spr(obj_type.exit,screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1)
+                spr(obj_type.exit, screen_x, screen_y)
 
                 -- path condition, im using 0 as black color
             else
@@ -95,17 +95,11 @@ function draw_maze(maze_template,offset_x,offset_y)
 end
 
 function add_key()
-    if not maze_ready then
-        return
-    end
     local pos = get_free_path_spot()
     maze[pos.y][pos.x] = obj_type.key
 end
 
 function add_exit()
-    if not maze_ready then
-        return
-    end
     local pos = get_free_path_spot()
     maze[pos.y][pos.x] = obj_type.exit
 end
