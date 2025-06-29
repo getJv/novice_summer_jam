@@ -3,10 +3,10 @@ cell_size = 8  -- this is the cell, in this case 8x8 pixels
 num_levels = 50
 obj_type = {
     path = 0,
-    wall = 1,
-    breakable_wall = 2,
-    key = 3,
-    exit = 4
+    wall = 60,
+    breakable_wall = 61,
+    key = 62,
+    exit = 63
 }
 
 -- https://www.integral-domain.org/lwilliams/Applets/algorithms/backtrackingmaze.php
