@@ -78,8 +78,9 @@ function draw_maze(maze_template,offset_x,offset_y)
             elseif maze_template[y][x] == obj_type.breakable_wall then
                 spr(obj_type.breakable_wall,screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1)
 
-            elseif maze_template[y][x] == obj_type.key then -- wall condition, im using 10 as yellow color
-                rectfill(screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1, 10)
+            -- key condition
+            elseif maze_template[y][x] == obj_type.key then
+                spr(obj_type.key,screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1)
 
             elseif maze_template[y][x] == obj_type.exit then -- wall condition, im using 3 as green color
                 rectfill(screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1, 3)
