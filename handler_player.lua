@@ -42,7 +42,7 @@ end
 
 function check_wall_collision(x, y)
     local num_rows = #maze
-    local num_cols = #maze
+    local num_cols = #maze[1]
 
     -- Add again the +1 to fix the change bt arrays and screen indexes
     -- divide by the cell_size to find the same coords in the maze_matrix
@@ -66,10 +66,10 @@ function check_wall_collision(x, y)
     if maze[grid_y][grid_x] == obj_type.exit then
         if player_have_key then
             num_levels = num_levels - 1
-            main_scene_init()
             player_have_key = false
-            maze[grid_y][grid_x] = obj_type.path
+            main_scene_init()
             sfx(sound.new_maze)
+            main_scene_init()
             -- TODO: add win logic for depth: 0
         else
             return true
