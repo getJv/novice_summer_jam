@@ -13,6 +13,11 @@ function main_scene_init()
     maze = test_maze
     add_key()
     add_exit()
+
+    -- random music from playlist
+    local random_index = flr(rnd(#playlist)) + 1
+    local selected_music = playlist[random_index]
+    music(selected_music)
 end
 
 function main_scene_update()

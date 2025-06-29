@@ -55,6 +55,7 @@ function check_wall_collision(x, y)
     if maze[grid_y][grid_x] == obj_type.key then
         maze[grid_y][grid_x] = obj_type.path
         player_have_key = true
+        sfx(sound.got_key)
         -- TODO: Would be cool if there is a timer for holding the key the reset
     end
 
@@ -65,6 +66,7 @@ function check_wall_collision(x, y)
             main_scene_init()
             player_have_key = false
             maze[grid_y][grid_x] = obj_type.path
+            sfx(sound.new_maze)
             -- TODO: add win logic for depth: 0
         else
             return true
@@ -72,10 +74,15 @@ function check_wall_collision(x, y)
 
     end
 
-    -- TODO: add logic to breakable wall
+    if maze[grid_y][grid_x] == obj_type.breakable_wall then
+        -- TODO: add logic to breakable wall
+        sfx(sound.hit_breakable)
+        return true
+    end
+
 
     -- if the grid pos hold value 1 so a collision happened.
-    return maze[grid_y][grid_x] == obj_type.wall or maze[grid_y][grid_x] == obj_type.breakable_wall
+    return maze[grid_y][grid_x] == obj_type.wall
 end
 
 
