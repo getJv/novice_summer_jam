@@ -1,5 +1,6 @@
 player = {x=16, y=16, speed=2}
 player_have_key = false
+player_added = false
 forcing = 0
 
 function draw_player()
@@ -12,6 +13,8 @@ function handle_player_movement()
     local new_x = player.x
     local new_y = player.y
     local moved = false -- will be the trigger to use the check_wall collision
+
+    if btn(4) then menu_scene_init() end   -- force Restart
 
 
     local dx, dy = 0, 0
