@@ -61,8 +61,10 @@ function check_wall_collision(x, y)
     -- collision with the exit
     if maze[grid_y][grid_x] == obj_type.exit then
         if player_have_key then
-            num_levels -= 1
+            num_levels = num_levels - 1
             main_scene_init()
+            player_have_key = false
+            maze[grid_y][grid_x] = obj_type.path
             -- TODO: add win logic for depth: 0
         else
             return true
