@@ -9,24 +9,52 @@ obj_type = {
     exit = 4 -- green
 }
 
-test_maze = {
-    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-    {1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,1,0,1,0,1,1,1,1,1,1,1,0,1,1},
-    {1,0,1,0,0,0,0,0,0,0,0,0,1,0,0,1},
-    {1,0,1,1,1,1,1,0,1,1,1,0,1,1,0,1},
-    {1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1},
-    {1,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1},
-    {1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1},
-    {1,0,1,1,1,1,1,0,1,0,1,0,1,1,1,1},
-    {1,0,0,0,0,0,1,0,1,0,0,0,1,0,0,1},
-    {1,1,1,1,1,0,1,0,1,1,1,0,1,0,1,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1},
-    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-}
+-- https://www.integral-domain.org/lwilliams/Applets/algorithms/backtrackingmaze.php
+-- https://www.youtube.com/watch?v=gBC_Fd8EE8A
+function generate_maze_recursive(width, height)
+    local maze = {}
+
+    -- Step 1: set all as wall
+    for row = 1, height do
+        maze[row] = {}
+        for col = 1, width do
+            maze[row][col] = obj_type.wall
+        end
+    end
+
+    -- step 2: start the path finder
+    function carve_path(x, y)
+        maze[y][x] = 0  -- Set entrypoint
+
+        -- set possible directions trbl
+        local directions = {{0,2},{2,0},{0,-2},{-2,0}}
+
+        -- random away sort the directions
+        for i = #directions, 2, -1 do
+            local j = flr(rnd() * i) + 1
+            directions[i] = directions[j]
+            directions[j] = directions[i]
+        end
+
+        -- Try each direction 
+        for dir in all(directions) do
+            local next_x, next_y = x + dir[1], y + dir[2]
+
+            -- is inside maze limit? and is a wall
+            if next_x > 1 and next_x < width and next_y > 1 and next_y < height and maze[next_y][next_x] == obj_type.wall then
+                maze[y + dir[2]/2][x + dir[1]/2] = 0  -- Replace wall for path
+                carve_path(next_x, next_y)  -- Call for next coors
+            end
+        end
+    end
+
+    -- Entrypoint to cave
+    carve_path(2, 2)
+
+    return maze
+end
+
+
 
 -- use offset as 0 if you dont need it
 function draw_maze(maze_template,offset_x,offset_y)

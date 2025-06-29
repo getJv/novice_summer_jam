@@ -5,7 +5,7 @@ function main_scene_init()
     player.x = 16
     player.y = 16
     -- Load the maze format, using test until i code the auto generation... probably the most broken part TODO: try random generation or creat 10 maps as default...
-    maze = test_maze
+    maze = generate_maze_recursive(16,16)
     add_key()
     add_exit()
 
