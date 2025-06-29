@@ -2,9 +2,9 @@ player = {x=16, y=16, speed=2}
 player_have_key = false
 
 function draw_player()
-    local color = controls_inverted and 10 or 8  -- if inverse yellow(10), red(8) if normal
+    local p_sprite = controls_inverted and 1 or 2
     -- Draw a fancy player sprite hehe
-    circfill(player.x, player.y, 2, color)
+    spr(p_sprite, player.x, player.y)
 end
 
 function handle_player_movement()

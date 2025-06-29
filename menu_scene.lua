@@ -22,6 +22,7 @@ end
 function menu_scene_draw()
     cls()
     draw_logo()
+    draw_player()
     draw_press_x()
     draw_press_z_to_credits()
 end
