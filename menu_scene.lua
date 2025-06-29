@@ -63,7 +63,7 @@ function draw_logo()
     draw_maze(maze_menu_logo,offset_x,offset_y)
     --
     offset_y = screen_height / 2 -- 50% of height
-    print("broken maze!",offset_x,offset_y)
+    print("broken maze!",offset_x,offset_y,6)
 
 end
 
