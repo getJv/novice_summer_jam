@@ -22,8 +22,8 @@ end
 
 function main_scene_draw()
     cls()
-    draw_ui()
     draw_maze(maze,0,0)
     draw_player()
+    draw_ui()
 
 end
