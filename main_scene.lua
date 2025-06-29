@@ -1,8 +1,3 @@
--- list of global variables included by other files
--- player {x:int,y:int, speed:int} from handler_player.lua
--- maze {}; maze_size,cell_size int; maze_test:[][]int  from handler_maze.lua
--- glitch_timer:int from handler_glitch
-
 function main_scene_init()
     _update = main_scene_update
     _draw = main_scene_draw
@@ -27,7 +22,7 @@ end
 
 function main_scene_draw()
     cls()
-    draw_maze()
+    draw_maze(maze,0,0)
     draw_player()
     draw_ui()
 

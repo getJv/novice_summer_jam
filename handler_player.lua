@@ -41,13 +41,16 @@ function handle_player_movement()
 end
 
 function check_wall_collision(x, y)
+    local num_rows = #maze
+    local num_cols = #maze
+
     -- Add again the +1 to fix the change bt arrays and screen indexes
     -- divide by the cell_size to find the same coords in the maze_matrix
     local grid_x = flr(x / cell_size) + 1
     local grid_y = flr(y / cell_size) + 1
 
     -- Avoid the player move out of the bricks
-    if grid_x < 1 or grid_x > maze_size or grid_y < 1 or grid_y > maze_size then
+    if grid_x < 1 or grid_x > num_rows or grid_y < 1 or grid_y > num_cols then
         return true
     end
 

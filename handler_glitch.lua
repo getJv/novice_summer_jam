@@ -44,9 +44,12 @@ end
 function get_free_path_spot()
     local path_positions = {}
 
+    local num_rows = #maze_menu_logo
+    local num_cols = #maze_menu_logo[1]
+
     -- find all pos with 0
-    for y = 1, maze_size do
-        for x = 1, maze_size do
+    for y = 1, num_rows do
+        for x = 1, num_cols do
             if maze[y][x] == 0 then
                 add(path_positions, {x = x, y = y})
             end

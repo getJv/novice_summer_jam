@@ -1,5 +1,4 @@
 maze = {}
-maze_size = 16 -- This is the max size of the maze
 cell_size = 8  -- this is the cell, in this case 8x8 pixels
 num_levels = 50
 obj_type = {
@@ -28,30 +27,35 @@ test_maze = {
     {1,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1},
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 }
-function draw_maze()
-    -- here im going by each x,y of the maze matrix
-    for y = 1, maze_size do
-        for x = 1, maze_size do
-            -- (x - 1) is important because the array starts at 1 but the screen pixels starts at 0
-            local screen_x = (x - 1) * cell_size
-            local screen_y = (y - 1) * cell_size
 
+-- use offset as 0 if you dont need it
+function draw_maze(maze_template,offset_x,offset_y)
+
+    local num_rows = #maze_template
+    local num_cols = #maze_template[1]
+
+    -- here im going by each x,y of the maze matrix
+    for y = 1, num_rows do
+        for x = 1, num_cols do
+            -- (x - 1) is important because the array starts at 1 but the screen pixels starts at 0
+            local screen_x = (x - 1) * cell_size + offset_x
+            local screen_y = (y - 1) * cell_size + offset_y
 
             -- wall condition, im using 6 as grey color
-            if maze[y][x] == obj_type.wall then
+            if maze_template[y][x] == obj_type.wall then
                 -- the cell_size - 1 here is because the pixels at screen start at 0
                 rectfill(screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1, 6)
 
-            elseif maze[y][x] == obj_type.breakable_wall then -- wall condition, im using 14 as pink color
+            elseif maze_template[y][x] == obj_type.breakable_wall then -- wall condition, im using 14 as pink color
                 rectfill(screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1, 14)
 
-            elseif maze[y][x] == obj_type.key then -- wall condition, im using 10 as yellow color
+            elseif maze_template[y][x] == obj_type.key then -- wall condition, im using 10 as yellow color
                 rectfill(screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1, 10)
 
-            elseif maze[y][x] == obj_type.exit then -- wall condition, im using 3 as green color
+            elseif maze_template[y][x] == obj_type.exit then -- wall condition, im using 3 as green color
                 rectfill(screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1, 3)
 
-            -- path condition, im using 0 as black color
+                -- path condition, im using 0 as black color
             else
                 rectfill(screen_x, screen_y, screen_x + cell_size - 1, screen_y + cell_size - 1, 0)
             end
