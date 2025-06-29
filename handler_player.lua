@@ -72,7 +72,7 @@ function check_wall_collision(x, y)
             main_scene_init()
             -- TODO: add win logic for depth: 0
         else
-            return true
+            return false -- allow cross in front of the door without key
         end
 
     end
