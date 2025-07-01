@@ -1,4 +1,4 @@
-player = {x=16, y=16, speed=2}
+player = {x=16, y=16, speed=2,w=6,h=6}
 player_have_key = false
 player_added = false
 forcing = 0
@@ -37,75 +37,87 @@ function handle_player_movement()
         moved = true
     end
 
+    --check_collisions()
+
     -- set the new positon in the array im using at the draw pos
-    if moved and not check_wall_collision(new_x, new_y) then
+    if not check_collisions(new_x,new_y) then
         player.x = new_x
         player.y = new_y
     end
 end
 
-function check_wall_collision(x, y)
-    local num_rows = #maze
-    local num_cols = #maze[1]
+function cell_corners(x,y,obj_w,obj_h,cell_size)
+    return {
+        -- top left
+        {x = flr(x / cell_size) + 1, y = flr(y / cell_size) + 1},
+        -- top right
+        {x = flr((x + obj_w - 1) / cell_size) + 1, y = flr(y / cell_size) + 1},
+        -- bottom left
+        {x = flr(x / cell_size) + 1, y = flr((y + obj_h ) / cell_size) + 1},
+        -- bottom right
+        {x = flr((x + obj_w ) / cell_size) + 1, y = flr((y + obj_h - 1) / cell_size) + 1}
+    }
+end
 
-    -- Add again the +1 to fix the change bt arrays and screen indexes
-    -- divide by the cell_size to find the same coords in the maze_matrix
-    local grid_x = flr(x / cell_size) + 1
-    local grid_y = flr(y / cell_size) + 1
+function check_collisions(new_x, new_y)
 
-    -- Avoid the player move out of the bricks
-    if grid_x < 1 or grid_x > num_rows or grid_y < 1 or grid_y > num_cols then
-        return true
-    end
+    local corners = cell_corners(new_x, new_y, player.w,player.h,cell_size)
 
-    -- collision with the key
-    if maze[grid_y][grid_x] == obj_type.key then
-        maze[grid_y][grid_x] = obj_type.path
-        player_have_key = true
-        sfx(sound.got_key)
-        -- TODO: Would be cool if there is a timer for holding the key the reset
-    end
+    for corner in all(corners) do
+        local cell_x = corner.x
+        local cell_y = corner.y
+        -- if inside the limit of screen
+        if cell_y >= 1 and cell_y <= #maze and cell_x >= 1 and cell_x <= #maze[1] then
+            -- get the cell type from maze value
+            local maze_value = maze[cell_y][cell_x]
 
-    -- collision with the exit
-    if maze[grid_y][grid_x] == obj_type.exit then
-        if player_have_key then
-            num_levels = num_levels - 1
-            player_have_key = false
-            if num_levels == 1 then
-                credits_scene_init()
-            else
-                main_scene_init()
+            if maze_value == obj_type.path then
+                -- ignore and continue for next corner
+            elseif maze_value == obj_type.wall then
+                return true -- wall collision
+            elseif maze_value == obj_type.breakable_wall then
+                if forcing < 20 then
+                    forcing = forcing + 1
+                    sfx(sound.hit_breakable)
+                    return true
+                end
+                maze[cell_y][cell_x] = obj_type.path
+                forcing = 0
+                -- ignore and continue for next corner
+            elseif maze_value == obj_type.key then
+                maze[cell_y][cell_x] = obj_type.path
+                player_have_key = true
+                sfx(sound.got_key)
+                -- ignore and continue for next corner
+            elseif maze_value == obj_type.exit then
+                if player_have_key then
+                    num_levels = num_levels - 1
+                    player_have_key = false
+                    if num_levels == 1 then
+                        credits_scene_init()
+                    else
+                        main_scene_init()
+                    end
+                    sfx(sound.new_maze)
+                end
+                -- ignore and continue for next corner
             end
-            sfx(sound.new_maze)
-
         else
-            return false -- allow cross in front of the door without key
-        end
-
-    end
-
-    if maze[grid_y][grid_x] == obj_type.breakable_wall then
-
-        if forcing < 20 then
-            forcing = forcing +1
-            sfx(sound.hit_breakable)
+            -- out of maze range
             return true
         end
-        maze[grid_y][grid_x] = obj_type.path
-        forcing = 0
-        return false
-
     end
 
-
-    -- if the grid pos hold value 1 so a collision happened.
-    return maze[grid_y][grid_x] == obj_type.wall
+    -- not detected colision
+    return false
 end
 
 function add_player()
     local pos = get_free_path_spot()
-    player.x = pos.x
-    player.x = pos.y
+    local screen_x = (pos.x - 1) * cell_size
+    local screen_y = (pos.y- 1) * cell_size
+    player.x = screen_x
+    player.y = screen_y
 end
 
 
