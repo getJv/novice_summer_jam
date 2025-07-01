@@ -12,7 +12,6 @@ end
 function handle_player_movement()
     local new_x = player.x
     local new_y = player.y
-    local moved = false -- will be the trigger to use the check_wall collision
 
     if btn(4) then menu_scene_init() end   -- force Restart
 
@@ -34,7 +33,6 @@ function handle_player_movement()
     if dx != 0 or dy != 0 then
         new_x = player.x + (dx * player.speed)
         new_y = player.y + (dy * player.speed)
-        moved = true
     end
 
     --check_collisions()
