@@ -1,6 +1,6 @@
 maze = {}
 cell_size = 8  -- this is the cell, in this case 8x8 pixels
-num_levels = 50
+num_levels = 10
 obj_type = {
     path = 0,
     wall = 60,
